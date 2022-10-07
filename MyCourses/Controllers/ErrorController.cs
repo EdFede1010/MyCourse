@@ -11,7 +11,7 @@ namespace MyCourses.Controllers
 
 #if DEBUG
             var feature = HttpContext.Features.Get<IExceptionHandlerPathFeature>();
-
+            // ciao
             switch (feature.Error)
             {
                 case CourseNotFoundException:
