@@ -1,0 +1,41 @@
+﻿@model HomeViewModel
+
+@try
+{
+    <div class="jumbotron">
+        <h1 class="outlined_white" style="margin-left:10px">@ViewData["Title"]</h1>
+        <p></p>
+        <p class="lead; outlined_lightblue" style="font-weight:bold; margin-left:10px">Impara facilmente con i nostri corsi!</p>
+        <br /><br />
+        <p><a asp-controller="Courses" asp-action="Index" class="btn btn-primary; outlined_white" style="margin-left:10px; background-color:#1a8cff; text-align:center">Sfoglia il catalogo<i class="bi bi-caret-right-fill"></i></a></p><br />
+    </div>
+    <br />
+    <br />
+    <section>
+        <h2><b>Corsi aggiunti di recente</b></h2>
+        @foreach (CourseViewModel course in Model.MostRecentCourses)
+        {
+                <partial name="Courses/_CourseLine" model="@course"></partial>
+        }
+    </section>
+
+    <section>
+        <h2><b>Corsi più apprezzati</b></h2>
+        @foreach (CourseViewModel course in Model.BestRatingCourses)
+        {
+                <partial name="Courses/_CourseLine" model="@course"></partial>
+        }
+    </section>
+
+    <section>
+        <h2><b>Corsi meno apprezzati</b></h2>
+        @foreach (CourseViewModel course in Model.LeastRatingCourses)
+        {
+                <partial name="Courses/_CourseLine" model="@course"></partial>
+        }
+    </section>
+}
+catch( Exception ex)
+{
+    <h1>@ex</h1>
+}

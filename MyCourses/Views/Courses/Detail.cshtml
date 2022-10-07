@@ -1,0 +1,61 @@
+﻿@model CourseDetailViewModel
+
+<section class=" course-info">
+    <div class="row">
+        <div class="col-md-9">
+            <h1>@Model.Title <a class="btn btn-outline-primary btn-sm" asp-action="Edit" asp-route-id="@Model.Id"><i class="bi bi-pencil-fill" style="padding-right:5px"></i>Modifica</a></h1>
+        </div>
+        <div class="col-md-3 d-flex align-items-end">
+            <a href="#" class="btn btn-warning subscribe-course">Iscriviti</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-9">
+            <p html-sanitize>@Model.Description</p>
+        </div>
+        <div class="col-md-3">
+            <aside>
+                <author>di @Model.Author</author>
+                <div class="rating" title=@Math.Round(Model.Rating,2)>
+                    <rating value="@Model.Rating"></rating>
+                </div>
+                <div class="price">
+                    <b>@String.Format("{0}", Model.CurrentPrice)  </b><br>
+                    @if ((Model.FullPrice != Model.CurrentPrice))
+                    {
+                        <s>@String.Format("{0}", Model.FullPrice)</s>
+                    }
+                </div>
+
+                <img src="@Model.ImagePath" class="img-fluid course-image" alt="@Model.Title" asp-append-version="true">
+                <a asp-page="/Contact" asp-route-id="@Model.Id" class="btn btn-block btn-outline-secondary mt-3">Fai una domanda</a>
+            </aside>
+        </div>
+    </div>
+</section>
+
+<section class="course-lessons">
+    <h2>Lezioni (@Model.Lessons.Count) <a class="btn btn-outline-primary btn-sm" asp-controller="Lessons" asp-action="Create" asp-route-id="@Model.Id"><i class="fas fa-plus"></i> Crea nuova</a></h2>
+    @foreach (var lesson in Model.Lessons)
+    {
+        <hr>
+        <div class="row">
+            <div class="col-md-9 d-flex align-items-center">
+                <p style="font-weight:600">-<a asp-controller="Lessons" asp-action="Detail" asp-route-id="@lesson.Id">@lesson.Title</a></p>
+            </div>
+            <div class="col-md-3 d-flex align-items-center justify-content-end lesson-duration">
+                <i class="far fa-clock"></i><time style="padding-right: 5px">@TimeSpan.Parse(lesson.Duration).ToString("hh'h 'mm'm 'ss's'")</time>
+                <a class="btn btn-outline-primary btn-sm ml-3" asp-controller="Lessons" asp-action="Edit" asp-route-id="@lesson.Id"><i class="fas fa-pencil-alt"></i></a>
+            </div>
+        </div>
+    }
+    <hr>
+    <div class="row course-duration">
+        <div class="col-md-9 d-flex align-items-center">
+            Totale
+        </div>
+        <div class="col-md-3 d-flex align-items-center justify-content-end">
+            <i class="far fa-clock"></i><time style="padding-right: 35px">@Model.TotalCourseDuration.ToString("hh'h 'mm'm 'ss's'")</time>
+        </div>
+    </div>
+</section>
