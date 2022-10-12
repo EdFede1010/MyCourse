@@ -3,6 +3,7 @@ using MyCourses.Models.Exceptions;
 using MyCourses.Models.InputModels.Lessons;
 using MyCourses.Models.Services.Application.Lessons;
 using MyCourses.Models.ViewModels.Lessons;
+using System;
 using System.Threading.Tasks;
 
 namespace MyCourses.Controllers
@@ -69,21 +70,24 @@ namespace MyCourses.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(LessonDeleteInputModel inputModel)
         {
-            await lessonService.DeleteLessonAsync(inputModel);
-            TempData["ConfirmationMessage"] = "Lezione eliminata con successo";
-            if (inputModel.CourseId == 0)
+            try
             {
-                return RedirectToAction(nameof(CoursesController.Index), "Courses", new
+                if (inputModel.Id != 0)
                 {
-                    id = inputModel.CourseId
-                });
+                    await lessonService.DeleteLessonAsync(inputModel);
+                    TempData["ConfirmationMessage"] = "Lezione eliminata con successo";
+                    return RedirectToAction(nameof(CoursesController.Detail), "Courses", new { id = inputModel.Id });
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Qualcosa è andato storto e la lezione non è stata cancellata");
+                    return RedirectToAction(nameof(CoursesController.Edit), "Lessons", new { id = inputModel.Id });
+                }
             }
-            else
+            catch (Exception ex)
             {
-                return RedirectToAction(nameof(CoursesController.Detail), "Courses", new
-                {
-                    id = inputModel.CourseId
-                });
+                Console.WriteLine(ex.Message);
+                return null;
             }
         }
     }

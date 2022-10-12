@@ -38,7 +38,7 @@ namespace MyCourses
                 option.Password.RequiredLength = 8;
                 option.Password.RequireUppercase = true;
                 option.Password.RequireLowercase = true;
-                option.Password.RequireNonAlphanumeric = true;
+                option.Password.RequireNonAlphanumeric = false;
                 option.Password.RequiredUniqueChars = 4;
             })
                .AddPasswordValidator<CommonPasswordValidator<IdentityUser>>()    

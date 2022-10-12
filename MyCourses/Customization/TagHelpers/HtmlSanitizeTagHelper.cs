@@ -26,29 +26,29 @@ namespace MyCourses.Customization.TagHelpers
             var sanitizer = new HtmlSanitizer();
             
             //Tag consentiti
-            sanitizer.AllowedTags.Clear();
-            sanitizer.AllowedTags.Add("b");
-            sanitizer.AllowedTags.Add("i");
-            sanitizer.AllowedTags.Add("p");
-            sanitizer.AllowedTags.Add("br");
-            sanitizer.AllowedTags.Add("ul");
-            sanitizer.AllowedTags.Add("ol");
-            sanitizer.AllowedTags.Add("li");
-            sanitizer.AllowedTags.Add("span");
-            sanitizer.AllowedTags.Add("iframe");
+            //sanitizer.AllowedTags.Clear();
+            //sanitizer.AllowedTags.Add("b");
+            //sanitizer.AllowedTags.Add("i");
+            //sanitizer.AllowedTags.Add("p");
+            //sanitizer.AllowedTags.Add("br");
+            //sanitizer.AllowedTags.Add("ul");
+            //sanitizer.AllowedTags.Add("ol");
+            //sanitizer.AllowedTags.Add("li");
+            //sanitizer.AllowedTags.Add("span");
+            //sanitizer.AllowedTags.Add("iframe");
 
-            //Attributi consentiti
-            sanitizer.AllowedAttributes.Clear();
-            sanitizer.AllowedAttributes.Add("src");
-            sanitizer.AllowedAttributes.Add("style");
-            sanitizer.AllowDataAttributes = false;
+            ////Attributi consentiti
+            //sanitizer.AllowedAttributes.Clear();
+            //sanitizer.AllowedAttributes.Add("src");
+            //sanitizer.AllowedAttributes.Add("style");
+            //sanitizer.AllowDataAttributes = false;
 
-            //Stili consentiti
-            sanitizer.AllowedCssProperties.Clear();
-            sanitizer.AllowedCssProperties.Add("background-color:rgb");
+            ////Stili consentiti
+            //sanitizer.AllowedCssProperties.Clear();
+            //sanitizer.AllowedCssProperties.Add("background-color:rgb");
 
-            sanitizer.FilterUrl += FilterUrl;
-            sanitizer.PostProcessNode += ProcessIFrame;
+            //sanitizer.FilterUrl += FilterUrl;
+            //sanitizer.PostProcessNode += ProcessIFrame;
 
             return sanitizer;
         }

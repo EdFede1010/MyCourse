@@ -96,13 +96,19 @@ namespace MyCourses.Models.Services.Application.Lessons
         }
         public async Task DeleteLessonAsync(LessonDeleteInputModel inputModel)
         {
-            Lesson lesson = await dbContext.Lessons.FindAsync(inputModel.Id);
-            if (lesson == null)
+            try
             {
-                throw new LessonNotFoundException(inputModel.Id);
+                Lesson lesson = await dbContext.Lessons.FindAsync(inputModel.Id);
+                if (lesson == null)
+                {
+                    throw new LessonNotFoundException(inputModel.Id);
+                }
+                dbContext.Remove(lesson);
+                await dbContext.SaveChangesAsync();
+            } catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
             }
-            dbContext.Remove(lesson);
-            await dbContext.SaveChangesAsync();
         }
     }
 }
